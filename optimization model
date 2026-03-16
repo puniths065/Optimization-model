@@ -1,0 +1,64 @@
+# Business Optimization using Linear Programming with PuLP
+
+Name:  
+Course:  
+Date:
+
+## Introduction
+
+Businesses often need to allocate limited resources such as labor and materials efficiently. 
+Optimization techniques such as Linear Programming help organizations determine the best 
+possible decisions to maximize profit or minimize costs.
+
+In this notebook, we solve a business problem using Linear Programming with the PuLP 
+library in Python.
+
+## Problem Statement
+
+A company produces two products: Product A and Product B.
+
+Profit per unit:
+Product A = ₹40
+Product B = ₹30
+
+Resource Constraints:
+Labor hours available = 100
+Material units available = 80
+
+Labor required:
+Product A = 2 hours
+Product B = 1 hour
+
+Material required:
+Product A = 1 unit
+Product B = 1 unit
+
+Objective:
+Maximize total profit while satisfying the resource constraints.
+
+from pulp import *
+model = LpProblem("Profit_Maximization", LpMaximize)
+product_A = LpVariable('Product_A', lowBound=0)
+product_B = LpVariable('Product_B', lowBound=0)
+model += 40 * product_A + 30 * product_B
+model += 2 * product_A + product_B <= 100
+model += product_A + product_B <= 80
+model.solve()
+print("Status:", LpStatus[model.status])
+print("Optimal units of Product A:", product_A.varValue)
+print("Optimal units of Product B:", product_B.varValue) 
+print("Maximum Profit:", value(model.objective))
+
+## Insights
+
+The optimization model provides the best production plan to maximize profit.
+
+The results show that the company should produce:
+- 20 units of Product A
+- 60 units of Product B
+
+This combination satisfies all resource constraints while achieving the 
+maximum possible profit.
+
+Linear programming helps businesses make better decisions by 
+optimizing resource allocation efficiently.
